@@ -1,14 +1,16 @@
 {
   "name": "dechexbin",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
+    "url": "https://github.com/JustANutshell/DecHexBin/issues",
     "email": "darklolcrap@gmail.com"
   },
+  "repository": "github:JustANutshell/DecHexBin",
   "author": "Dark",
   "license": "MIT",
   "keywords": [
