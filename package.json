@@ -1,0 +1,22 @@
+{
+  "name": "dechexbin",
+  "version": "1.0.11",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bugs": {
+    "email": "darklolcrap@gmail.com"
+  },
+  "author": "Dark",
+  "license": "MIT",
+  "keywords": [
+    "number-system",
+    "number",
+    "convert",
+    "hex",
+    "dec",
+    "bin"
+  ]
+}
