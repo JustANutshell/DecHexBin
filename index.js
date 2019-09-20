@@ -53,6 +53,9 @@ module.exports=(function(){
 	var getNT=function(name){
 		var x=null;
 		if(typeof name==="number"||typeof name==="bigint"){
+			if(!Number.isInteger(Number(name))){
+				throw "DecHexBin: number system must be a String or a INTEGER (it was: "+name+")";
+			}
 			x={n:"---",x:BigInt(name)};
 		}else{
 			var name=String(name).toLowerCase();
@@ -68,10 +71,37 @@ module.exports=(function(){
 			return null;
 		}else{
 			var y=Object.keys(mainconfig.c_a).length;
-			if(x.x<=y){
-				return x;
+			if(x.x>y){
+				throw "DecHexBin: the biggest number system is "+y;
+			}else if(x.x<2){
+				throw "DecHexBin: the smallest number system is 2";
 			}else{
-				throw "DecHexBin: the biggest 'number system' is "+y;
+				return x;
+			}
+		}
+	}
+	var checkValue=function(value,type){
+		if(value===""){
+			throw "DecHexBin: value was empty";
+		}else{
+			var a=value.split('');
+			var good_=[];
+			var good=true;
+			for(var b=0;b<a.length;b++){
+				if(!(mainconfig.c_b[a[b]]!==undefined&&mainconfig.c_b[a[b]]<type.x)){
+					good=false;
+					good_[good_.length]=a[b];
+				}
+			}
+			if(!good){
+				var allowed=[];
+				var a=Object.keys(mainconfig.c_a);
+				for(var b=0;b<a.length;b++){
+					if(a[b]<type.x){
+						allowed[allowed.length]=mainconfig.c_a[a[b]];
+					}
+				}
+				throw "DecHexBin: "+JSON.stringify(good_)+" isn't allowed in the value (only allowed: "+JSON.stringify(allowed)+")";
 			}
 		}
 	}
@@ -80,46 +110,26 @@ module.exports=(function(){
 		var a=function(a,b,c){if(a===null){throw "DecHexBin: "+b+" ("+(typeof c)+":"+c+") isn't a number system (such as String: dec or hex or Number: 16)";}}
 		var type_old=getNT(oldType);	a(type_old,"oldType",oldType);
 		var type_new=getNT(newType);	a(type_new,"newType",newType);
+		var a=value.split('');
+		var negativ=a[0]==="-";
+		if(negativ){
+			value="";
+			for(var b=1;b<a.length;b++){
+				value=value+""+a[b];
+			}
+		}
+		checkValue(value,type_old);
 		if(type_old.x===type_new.x){
-			return value;
-		}else if(value===""){
-			return null;
+			return (negativ&&value!=="0"?"-":"")+value;
 		}else{
-			var a=value.split('');
-			var negativ=a[0]==="-";
-			if(negativ){
-				var value="";
-				for(var b=1;b<a.length;b++){
-					value=value+""+a[b];
-				}
-				a=value.split('');
-			}
-			var good_=[];
-			var good=true;
-			for(var b=0;b<a.length;b++){
-				if(!(mainconfig.c_b[a[b]]!==undefined&&mainconfig.c_b[a[b]]<type_old.x)){
-					good=false;
-					good_[good_.length]=a[b];
-				}
-			}
-			if(good){
-				if(type_old.n==="dec"){
-					return (negativ?"-":"")+fromDec(value,type_new);
-				}else if(type_new.n==="dec"){
-					return (negativ?"-":"")+toDec(value,type_old);
-				}else{
-					return (negativ?"-":"")+main(main(value,type_old.x,"dec"),"dec",type_new.x);
-				}
+			if(type_old.n==="dec"){
+				var newValue=fromDec(value,type_new);
+			}else if(type_new.n==="dec"){
+				var newValue=toDec(value,type_old);
 			}else{
-				var allowed=[];
-				var a=Object.keys(mainconfig.c_a);
-				for(var b=0;b<a.length;b++){
-					if(a[b]<type_old.x){
-						allowed[allowed.length]=mainconfig.c_a[a[b]];
-					}
-				}
-				throw "DecHexBin: "+JSON.stringify(good_)+" isn't allowed in the value (only allowed: "+JSON.stringify(allowed)+")";
+				var newValue=main(main(value,type_old.x,"dec"),"dec",type_new.x);
 			}
+			return (negativ&&newValue!=="0"?"-":"")+newValue;
 		}
 	}
 	return main;
