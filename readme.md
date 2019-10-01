@@ -2,6 +2,7 @@ Converter for various number systems.
 Bad coded, but hey, it works.
 
 ### Syntax
+-----
 ```js
 DecHexBin( oldValue , oldType , newType );
 ```
@@ -9,6 +10,7 @@ DecHexBin( oldValue , oldType , newType );
 oldType and newType can be a string ("dec", "hex", "bin") or a number like 16 (16 for hex, 10 for dec, etc)
 
 ### Example
+-----
 ```js
 const DecHexBin=require("dechexbin");
 
