@@ -12,7 +12,7 @@ oldType and newType can be a string ("dec", "hex", "bin") or a number like 16 (1
 ### Example
 -----
 ```js
-const DecHexBin=require("dechexbin");
+const DecHexBin = require("dechexbin");
 
 console.log(DecHexBin("ff","hex","dec")); // 255
     
