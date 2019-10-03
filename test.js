@@ -1,7 +1,5 @@
-const DecHexBin=require("./index.js"); // require("dechexbin");
+const DecHexBin = require("./index.js"); // require("dechexbin");
 
-var a=DecHexBin("ff","hex","dec");
-console.log(a); // 255
-
-var b=DecHexBin("1111","bin",8);
-console.log(b); // 17
+console.log(DecHexBin("ff","hex","dec")); // 255
+    
+console.log(DecHexBin("1111","bin",8)); // 17
