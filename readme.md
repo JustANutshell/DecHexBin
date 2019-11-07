@@ -18,5 +18,3 @@ console.log(DecHexBin("ff","hex","dec")); // 255
     
 console.log(DecHexBin("1111","bin",8)); // 17
 ```
-
-Send bugs to darklolcrap@gmail.com
