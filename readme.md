@@ -14,7 +14,7 @@ newValue = DecHexBin(oldValue, oldType, newType (, numberSystem));
 ### Example
 -----
 ```js
-var DecHexBin = require("dechexbin");
+const DecHexBin = require("dechexbin");
 
 console.log(DecHexBin("ff", "hex", "dec")); // 255
     
@@ -25,14 +25,14 @@ console.log(DecHexBin("1111", "bin", 8)); // 17
 -----
 DecHexBin uses normal numbers by default. You can use BigInts by using another argument:
 ```js
-var DecHexBin = require("dechexbin");
+const DecHexBin = require("dechexbin");
 
 console.log(DecHexBin("FFFFFFFFFFFFFFFF", 16, 10, BigInt));
 ```
 
 If your Node version doesn't support `Array.prototype.find`:
 ```js
-var DecHexBin = require("dechexbin");
+const DecHexBin = require("dechexbin");
 
 DecHexBin.defaultFunctions.find=function(arr,func){
 	// you can put here an alternative find function
