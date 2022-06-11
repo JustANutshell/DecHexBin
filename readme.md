@@ -1,24 +1,30 @@
 Converter for various number systems.  
-Bad coded, but hey, it works.
 
 ### Syntax
 -----
 ```js
-newValue = DecHexBin(oldValue, oldType, newType (, numberSystem));
+newValue = DecHexBin(oldValue, oldType, newType, [numberSystem]);
 ```
 
-`oldType` and `newType` can be a string (`"dec"`, `"hex"`, `"bin"`) or a number (`16` for hex, `10` for dec, etc).
+`oldType` and `newType` can be
+a string (`"dec"`, `"hex"`, `"bin"`) or 
+a number (`16` for hex, `10` for dec, etc) or
+a cypher (`"#0123456789"`, the hashtag is required)
 
 `numberSystem` can be `Number` or `BigInt` (or something similar). By default it's `Number`.
+
+Warning: The default cypher uses uppercase letters, i.e. use `FF` instead of `ff`
 
 ### Example
 -----
 ```js
 var DecHexBin = require("dechexbin");
 
-console.log(DecHexBin("ff", "hex", "dec")); // 255
+console.log(DecHexBin("FF", "hex", "dec")); // 255
     
 console.log(DecHexBin("1111", "bin", 8)); // 17
+
+console.log(DecHexBin("3120434303123", 5, "#Kartoffelsalat")); // ellfsarf
 ```
 
 ### Other
@@ -28,20 +34,4 @@ DecHexBin uses normal numbers by default. You can use BigInts by using another a
 var DecHexBin = require("dechexbin");
 
 console.log(DecHexBin("FFFFFFFFFFFFFFFF", 16, 10, BigInt));
-```
-
-If your Node version doesn't support `Array.prototype.find`:
-```js
-var DecHexBin = require("dechexbin");
-
-DecHexBin.defaultFunctions.find=function(arr,func){
-	// you can put here an alternative find function
-	// For example:
-	for(var a=0;a<arr.length;a++){
-		if(func(arr[a])){
-			return arr[a];
-		}
-	}
-	return undefined;
-}
 ```

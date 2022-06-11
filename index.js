@@ -1,6 +1,6 @@
 // DecHexBin by npm: Dark_ github: JustANutshell
 // https://www.npmjs.com/package/dechexbin
-const VERSION = "1.2.0";
+const VERSION = "1.2.1";
 const DEFAULTCYPHER = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var knownNumberSystems = {
 	"dec": 10,
@@ -61,9 +61,9 @@ function fromDec(value, numberSystem, numberType) {
 
 function getDefaultCypherForLength(length) {
 	if (length > DEFAULTCYPHER.length) {
-		err("the biggest number system is " + DEFAULTCYPHER.length);
+		throw "the biggest number system is " + DEFAULTCYPHER.length;
 	} else if (length < 2) {
-		err("the smallest number system is 2");
+		throw "the smallest number system is 2";
 	} else {
 		return DEFAULTCYPHER.slice(0, length);
 	}
@@ -94,11 +94,11 @@ function getNT(name) {
 
 		}
 	} else {
-		err("number system must be a String or a Number (it was: " + typeof name + ")");
+		throw "number system must be a String or a Number (it was: " + typeof name + ")";
 	}
 }
 
-function main(value, oldType, newType, numberType = null, canSkipChecks = true) {
+function main(value, oldType, newType, numberType = null, canSkipChecks = false) {
 	if (numberType === undefined || numberType === null) { numberType = Number; }
 	value = String(value);
 
